@@ -1,0 +1,25 @@
+[package]
+name = "rustdb"
+version = "0.1.0"
+edition = "2021"
+license = ""
+description = "A single-node, transactional, disk-backed SQL-ish database written in Rust"
+readme = ""
+repository = "https://github.com/darshana-v/rustdb"
+keywords = ["database", "sql", "storage", "btree"]
+categories = ["database-implementations"]
+
+[dependencies]
+anyhow = "1"
+thiserror = "1"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["full"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+toml = "0.8"
+sqlparser = "0.45"
+
+[dev-dependencies]
+tempfile = "3"
+tokio-test = "0.4"

@@ -1,0 +1,9 @@
+# RustDB configuration TOML
+# Copy to config.toml and adjust as needed.
+
+page_size = 8192
+buffer_pool_size = 1024
+wal_sync = true
+listen_addr = "127.0.0.1:xxxx"
+max_connections = 16
+data_dir = "."
