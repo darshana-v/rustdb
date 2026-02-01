@@ -2,7 +2,7 @@
 
 use anyhow::{ensure, Result};
 use std::fs::{File, OpenOptions};
-use std::io::{BufWriter, Write};
+use std::io::{BufWriter, Seek, SeekFrom, Write};
 use std::path::Path;
 
 #[allow(unused_imports)]
@@ -69,6 +69,16 @@ impl HeapFile {
     pub fn read_page(&mut self, page_id: PageId) -> Result<Page> {
         ensure!(page_id < self.num_pages, "page id {} out of range", page_id);
         Page::read_at(&mut self.file, page_id)
+    }
+
+    /// Write a page at an existing id. Used when updating in-place (e.g. B-tree nodes).
+    pub fn write_page(&mut self, page_id: PageId, page: &Page) -> Result<()> {
+        ensure!(page_id < self.num_pages, "page id {} out of range", page_id);
+        let mut p = page.clone();
+        p.set_page_id(page_id);
+        p.write_at(&mut self.file, page_id)?;
+        self.file.flush()?;
+        Ok(())
     }
 
     /// Number of pages in the file.

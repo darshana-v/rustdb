@@ -173,6 +173,11 @@ impl Page {
     pub fn as_bytes(&self) -> &[u8; PAGE_SIZE] {
         &self.data
     }
+
+    /// Mutable byte slice for B-tree and other formats that lay out the body manually.
+    pub fn as_bytes_mut(&mut self) -> &mut [u8; PAGE_SIZE] {
+        &mut self.data
+    }
 }
 
 #[cfg(test)]
